@@ -118,4 +118,155 @@ job:
 
 ## 6. 최종 산출물 (8단계 출력 전문)
 
-_(8단계 완료 후 추가)_
+### 6.1 제안서 사이트 URL
+- https://proposal-router.claude-ai-b27.workers.dev/proposal-content-ops-admin-mvp/
+
+### 6.2 지원 금액 (복사용)
+```
+27,000,000원
+```
+> 산정: 클라이언트 예상 상한 3,000만원 × 90% = 2,700만원 (VAT 별도, 10만원 단위 반올림)
+
+### 6.3 지원 기간 (복사용)
+```
+60일
+```
+> 산정: 클라이언트 예상 60일과 내부 산정 62일 차이 3%(오차 범위 이내) → 클라이언트 기간 그대로 제안
+
+### 6.4 클라이언트 질문 답변
+
+**Q: 유사 포트폴리오가 있나요? 있다면 간략히 설명해주세요. (미팅 시 상세 설명 요망)**
+
+본 프로젝트와 직결되는 유사 수행 경험은 다음 3건입니다.
+
+1) 전자결재 SaaS 플랫폼 (B2B 어드민·워크플로우 · 약 9주, 100% 풀스택)
+- 다단계 결재·승인 워크플로우 엔진(8종 결재 액션), Lexical 리치 텍스트 에디터(170 파일·26 커스텀 노드), RBAC 권한 매트릭스(7 역할 × 50+ 페이지 × 120-150 API 엔드포인트)
+- 본 프로젝트 매칭: 키워드→원고→발행→순찰 상태 머신 워크플로우, 원고 리치 에디터, 직원별 권한·작업 로그 구조
+- 기술: NestJS, Next.js, TypeScript, MySQL, Lexical, Yjs, CASL, Docker
+
+2) AI-Native 운영 자동화 프레임워크 (AI·자동화·LLM 통합 · 47일/236 커밋, 100%)
+- OpenAI/Anthropic SDK 직접 통합, 134+ 스킬 모듈, 자동화 작업 큐, API Key 사용자 단위 분리 저장, 호출 비용·실패 로그 관리
+- 본 프로젝트 매칭: GPT/Claude API 윤문(API Key 입력형), 비용·호출량 통제, 자동화 작업 큐(BullMQ) 패턴
+- 기술: TypeScript, Claude Agent SDK, OpenAI SDK, PostgreSQL, MCP
+
+3) VC 펀드 라이프사이클 관리 플랫폼 (핀테크 · 14개월, 100% 풀스택)
+- ChatGPT 연동 AI 보고서 자동 생성, 다단계 결재 워크플로우, Lexical+Yjs 실시간 공동편집, NICE KYC, 5계층 보안·감사 로그, 50+ 페이지 / 200-300+ API 엔드포인트
+- 본 프로젝트 매칭: ChatGPT 자동 생성 흐름, 대규모 B2B 어드민, 역할 기반 권한·감사 로그
+- 기술: Next.js, NestJS, MySQL, Lexical, Yjs, ChatGPT API, AWS
+
+상세 화면·아키텍처·코드 규모는 미팅 시 비공개 자료로 추가 설명드리겠습니다.
+
+### 6.5 지원 내용 (전체 텍스트)
+
+```
+안녕하세요, 콘텐츠 마케팅 업무 효율화를 위한 사내용 관리 프로그램(MVP) 구축 프로젝트에 지원합니다.
+
+본 프로젝트에 대한 상세 제안서(견적서, 공수계산서, PRD, 일정, 포트폴리오)를 별도 페이지로 준비하였습니다. 아래 링크에서 확인해 주시면 감사하겠습니다.
+▶ 제안서 상세 페이지: https://proposal-router.claude-ai-b27.workers.dev/proposal-content-ops-admin-mvp/
+▶ 위시켓 포트폴리오: https://www.wishket.com/partners/p/blueverse1/
+
+---
+
+<프로젝트 진행 제안>
+
+■ 프로젝트 분석
+- 현재 스프레드시트로 분산 관리되는 키워드, 원고, 발행 현황 데이터를 단일 웹 어드민으로 통합하는 MVP 구축이 핵심 목표
+- 키워드 발굴 → 원고 작성 → 네이버 자동 발행 → 노출 순찰 및 수정 관리까지 콘텐츠 운영 전 과정을 상태 머신 기반 워크플로우로 시스템화
+- Google Sheets API 할당량 회피를 위해 자체 PostgreSQL DB를 메인으로 두고, Sheets는 Import/Export 보조 채널로 활용
+- 네이버 봇 탐지(CAPTCHA/IP 차단) 리스크 최소화를 위해 휴먼-라이크 입력 + 다계정 풀 + 이상 감지 시 운영자 알림을 결합한 반자동화 모드를 기본 옵션으로 채택
+- GPT/Claude API 윤문은 클라이언트 API Key 입력형으로 설계하여 비용·보안을 클라이언트가 직접 통제
+
+■ 작업 일정
+
+[Phase 1: 기획·설계·디자인 + 발행 PoC] Day 1–14
+- 요구사항 정의, 화면 흐름, ERD, API 명세, RBAC 매트릭스
+- Figma 시안(어드민 8화면 + 컴포넌트)
+- 네이버 카페·블로그 1건 자동 발행 PoC 실증으로 기술 리스크 검증
+
+[Phase 2: 어드민 코어 개발] Day 15–30
+- NestJS API 골격, PostgreSQL DB 구축, 로그인/RBAC
+- 키워드 관리(등록·상태·우선순위·담당자·트리 묶음)
+- 원고 관리(리치 텍스트 에디터, 다중 이미지, 네이버 미리보기)
+- GPT/Claude API 윤문 모듈 (API Key 입력형, AES-256 암호화 저장)
+
+[Phase 3: 자동화·외부 연동] Day 31–45
+- Playwright 발행 봇(다계정 풀, 라운드로빈, 1일 한도, 휴먼-라이크 패턴)
+- BullMQ 예약 스케줄러 + 실패 재시도 큐
+- 순찰 크롤러(노출/누락/댓글 체크), 재발행 플래그 자동 설정
+- Google Sheets Import/Export 모듈
+- 캡차/이상 감지 시 운영자 알림(반자동화 모드)
+
+[Phase 4: 대시보드·통합 QA·배포] Day 46–60
+- 운영 대시보드(현황 요약, 기간별 추이 차트, 알림 센터)
+- 감사 로그 검색·필터 화면
+- 통합 QA(E2E 시나리오 ≥10건), Docker 배포
+- 관리자·사용자 매뉴얼 작성
+- 마지막 1주 안정화 모니터링
+
+■ 마일스톤 및 산출물
+- M1 (Day 14): Figma 시안 + ERD + API 명세 + 네이버 자동 발행 PoC 실증 영상
+- M2 (Day 30): 키워드 관리 + 원고 에디터 + AI 윤문 데모, 자체 DB 운영 가능
+- M3 (Day 45): 다계정 예약 발행 + 순찰 크롤러 + Sheets 양방향 연동 통합 시연
+- M4 (Day 60): 대시보드 + 매뉴얼 + 운영 환경 배포, 1주 안정화 모니터링 보고서
+
+산출물: 소스 코드 전체, 시스템 아키텍처 및 DB 설계서, API 명세서, 관리자/사용자 매뉴얼, 배포 가이드, 1개월 무상 하자 보수
+
+■ 미팅 시 협의 필요 사항
+- 현재 사용 중인 스프레드시트 양식 공유 — 키워드/원고/발행 데이터 모델 정의의 기준
+- 운영할 네이버 계정 수 및 1일 발행 한도 정책 — 다계정 풀 설계의 입력
+- 프록시/IP 풀 자원 제공 여부 — 봇 탐지 회피 아키텍처 수준 결정
+- GPT/Claude 중 우선 사용 모델 및 사용량 가이드라인 — 윤문 모듈 기본값 설정
+- 권한 그룹 세부 정의 — 최고 관리자 / 콘텐츠 매니저 / 발행 운영자 권한 매트릭스 확정
+- 100% 무인 자동화 vs 반자동화의 운영 정책 비중
+
+---
+
+<유사 프로젝트 진행 경험>
+
+▶ 전자결재 SaaS 플랫폼 (2026.01~2026.03, 약 9주)
+- 프로젝트 유형: B2B 기업용 어드민 / 전자결재 워크플로우 / SaaS
+- 핵심 기능: 다단계 결재 워크플로우 엔진(8종 결재 액션), Lexical 리치 텍스트 에디터(170 파일·26 커스텀 노드), 실시간 공동 편집(CRDT/Yjs), RBAC 권한 매트릭스(7 역할 × 50+ 페이지 × 120-150 API 엔드포인트), 전자도장·전자서명, 감사 로그
+- 유사점: 어드민 + 리치 에디터 + 상태 머신 기반 워크플로우 + RBAC 매트릭스 + 감사 로그 — 본 프로젝트 "키워드 → 원고 → 발행 → 순찰" 흐름과 권한·로그 구조의 직접 베이스 라인
+- 기술 스택: NestJS 10, Next.js 13, TypeScript, MySQL 8, Lexical, Yjs, CASL, Docker
+
+▶ AI-Native 운영 자동화 프레임워크 (2025~, 47일/236 커밋)
+- 프로젝트 유형: AI / 자동화 / 멀티 에이전트 / LLM 통합
+- 핵심 기능: 멀티 에이전트 오케스트레이션(Claude/Gemini/Codex/Jules), 134+ 스킬 모듈, OpenAI/Anthropic SDK 직접 통합, MCP 외부 연동, 12 품질 게이트(출력 검증·비용 제한·실패 재시도)
+- 유사점: GPT/Claude API 통합 운영, API Key 사용자 단위 분리, 호출 비용·실패 사유 로그, 자동화 작업 큐 — 본 프로젝트 원고 윤문(API Key 입력형) + 발행 자동화 큐 패턴에 직결
+- 기술 스택: TypeScript, React, Hono, Claude Agent SDK, OpenAI SDK, PostgreSQL, MCP
+
+▶ VC 펀드 라이프사이클 관리 플랫폼 (2023.11~2024.12, 14개월)
+- 프로젝트 유형: 핀테크 / B2B 포탈 / AI 자동 생성
+- 핵심 기능: AI 투자 보고서 자동 생성(ChatGPT 연동), VC 펀드 라이프사이클(GP/LP/스타트업 역할), 다단계 결재 워크플로우, CRDT 실시간 공동편집, 5계층 보안(DLP·GeoIP·감사 로그), 50+ 페이지 / 22 도메인 모듈 / 200-300+ API 엔드포인트
+- 유사점: ChatGPT 자동 생성 흐름(원고 초안 생성에 직접 적용), 대규모 어드민·포탈 구조, 역할 기반 권한·감사 로그 — 본 프로젝트의 확장된 실증 사례
+- 기술 스택: Next.js 13, NestJS 10, TypeScript, MySQL, Lexical, Yjs, ChatGPT API, AWS
+
+---
+
+<사용 기술과 툴>
+
+▶ 개발 기술
+- Backend: Node.js, NestJS 10, TypeScript, BullMQ
+- Frontend: Next.js 14 (React 18), TypeScript, TailwindCSS, Lexical Editor
+- Database: PostgreSQL 16, Prisma, Redis
+- Automation: Playwright (헤드리스 Chromium), Stealth 플러그인, 프록시 풀 연동
+- AI/API: OpenAI SDK, Anthropic SDK, Google Sheets API v4
+
+▶ 개발 도구 및 인프라
+- 버전 관리: GitHub
+- CI/CD: GitHub Actions
+- 클라우드: AWS (EC2, RDS, S3) 또는 Vercel (프로젝트 특성에 맞게 선택)
+- 컨테이너: Docker / Docker Compose
+
+▶ 커뮤니케이션
+- 일일 진행 공유: Slack 또는 카카오톡
+- 주간 미팅: Zoom / Google Meet
+- 문서 공유: Notion 또는 Google Docs
+- 이슈 트래킹: GitHub Issues 또는 Linear
+```
+
+### 6.6 관련 포트폴리오 추천 (위시켓 폼 선택)
+
+1. **전자결재 SaaS 플랫폼** — 본 프로젝트와 가장 유사한 어드민·리치 에디터·워크플로우·RBAC 구조
+2. **AI-Native 운영 자동화 프레임워크** — GPT/Claude API 통합·자동화 큐의 직접 매칭
+3. **VC 펀드 라이프사이클 관리 플랫폼** — ChatGPT 자동 생성·대규모 어드민의 확장 사례
